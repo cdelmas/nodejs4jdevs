@@ -2,5 +2,8 @@
   "name": "nodejs4jdevs",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "fluture": "^8.0.2"
+  }
 }
