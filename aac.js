@@ -1,4 +1,5 @@
-const Future = require('fluture');
+const { node, encase } = require('fluture');
+const fs = require('fs');
 
 const f = (r, cb) => {
   console.log('Executing f');
@@ -6,7 +7,7 @@ const f = (r, cb) => {
 };
 
 const p = (r) => {
-  console.log('Executing p');  
+  console.log('Executing p');
   return Promise.resolve(r);
 };
 
@@ -17,40 +18,45 @@ const a = async (r) => {
 
 const consume = async () => {
   f(5, (err, r) => {
-      f(6, (err2, d) => { // do not clash names!
-        console.log(`Result: ${r + d}`);
-      });
+    f(6, (err2, d) => { // do not clash names!
+      console.log(`Result: ${r + d}`);
+    });
   });
 
   p(5)
-    .then((r) => p(6))
+    .then(r => p(6))
     .then((d) => { /* lost r... */ })
-    .catch(err => {/* do something */});
-
-  // TODO: add exceptions
+    .catch((err) => { /* do something */ });
 
   Promise.all([p(6), p(5)])
-    .then(arr => {
-      console.log(`Promise all: ${arr.reduce((a,b) => a+b, 0)}`);
+    .then((arr) => {
+      console.log(`Promise all: ${arr.reduce((a, b) => a + b, 0)}`);
     });
 
   try {
     const r = await a(5);
     const d = await a(6);
     console.log(`Sequential awaits: ${r + d}`);
-  } catch(e) {
+  } catch (e) {
     /* do something */
   }
 
   try {
-    const res = await a(5) + await a(6); // parallel style => TODO: add a blocking option to a to show the parallel
-    // TODO copy this code, then throw an exception from here and from the awaited functions
+    const res = await a(5) + await a(6); // parallel style
     console.log(`Parallel awaits: ${res}`);
-  } catch(e) {
+  } catch (e) {
     /* do something */
   }
 
+  const getPackageName = file =>
+    node((done) => {
+      fs.readFile(file, 'utf8', done);
+    })
+      .chain(encase(JSON.parse))
+      .map(x => x.name);
 
+  getPackageName('package.json') // nothing run yet
+    .fork(console.error, console.log);
 };
 
 consume();

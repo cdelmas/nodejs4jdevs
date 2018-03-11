@@ -10,7 +10,7 @@ const registerListener = (eventName, from) => {
   });
 };
 
-console.log(`max listeners for a single event: ${source.getMaxListeners()}`)
+console.log(`max listeners for a single event: ${source.getMaxListeners()}`);
 registerListener('ntdata', 'nextTick 1');
 registerListener('ntdata', 'nextTick 2');
 registerListener('ntdatacb', 'nextTick registered callback 1');
@@ -36,7 +36,7 @@ const readFile = (event, message) => {
     console.log(message);
     source.emit(event, 'cb called');
   });
-}
+};
 
 console.log('not a callback 1');
 readFile('finished reading the file from main');
@@ -47,7 +47,7 @@ setTimeout(() => {
   readFile('todatacb', 'finished reading the file from timeout');
   console.log('timeout: end');
 }, 0);
-setImmediate(() => { 
+setImmediate(() => {
   console.log('immediate: start');
   source.emit('immdata', 'imm');
   readFile('immdatacb', 'finished reading the file from immediate');
