@@ -1,6 +1,6 @@
 
 const fn = () => {
-  for (var i = 0; i < 5; i+=1) {
+  for (var i = 0; i < 5; i++) {
     setTimeout(() => {
       console.log(`${i}`);
     }, 0);
