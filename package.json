@@ -7,11 +7,15 @@
     "eslint": "eslint *.js"
   },
   "dependencies": {
-    "fluture": "^8.0.2"
+    "fluture": "^8.0.2",
+    "joi": "^13.1.2",
+    "ramda": "^0.25.0"
   },
   "devDependencies": {
     "eslint": "^4.18.2",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.9.0"
-  }
+  },
+  "repository": "https://github.com/cdelmas/nodejs4jdevs.git",
+  "author": "cdelmas <cyril.delmas@gmail.com>"
 }
