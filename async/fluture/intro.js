@@ -1,13 +1,19 @@
-const { node, encase } = require('fluture');
-const fs = require('fs');
+const Future = require('fluture');
 
-const getPackageName = file =>
-  node((done) => {
-    fs.readFile(file, 'utf8', done);
-  })
-    .chain(encase(JSON.parse))
-    .map(x => x.name);
+const f = (r) => {
+  console.log(`Executing f(${r})`);
+  return Future.of(r);
+};
 
-getPackageName('package.json') // nothing run yet
-  .fork(console.error, console.log);
+const consume = () => {
+  Future.of(x => y => x + y)
+    .ap(f(5))
+    .ap(f(6))
+    .fork(console.error, console.log);
 
+  f(5)
+    .chain(i => f(7 + i))
+    .fork(console.error, console.log);
+};
+
+consume();
