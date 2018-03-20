@@ -11,7 +11,7 @@ const consume = () => {
     } else {
       f(6, (err2, d) => { // do not clash names!
         if (err2) {
-          console.error('something bad happened');          
+          console.error('something bad happened');
         } else {
           console.log(`Result: ${r + d}`);
         }
