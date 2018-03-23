@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "eslint": "eslint *.js",
-    "ts": "tsc ts/intro-ts.ts --outDir build"
+    "ts": "tsc ts/intro-ts.ts --outDir build",
+    "test": "jest"
   },
   "dependencies": {
     "fluture": "^8.0.2",
@@ -16,6 +17,7 @@
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.9.0",
+    "jest": "^22.4.3",
     "typescript": "^2.7.2"
   },
   "repository": "https://github.com/cdelmas/nodejs4jdevs.git",
