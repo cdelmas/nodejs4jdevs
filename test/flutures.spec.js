@@ -10,6 +10,6 @@ const compute = (a, c) => {
 test('future as pure data, no side effect, no mocks', () => {
   const future = compute(35, Math.random());
   expect(future).toBeInstanceOf(Future);
-  expect(future._a).toMatch(/.*qwant\.com.*/);
-  expect(future._fn).toHaveProperty('get');
+  expect(future._a).toMatch(/.*qwant\.com.*/); // eslint-disable-line no-underscore-dangle
+  expect(future._fn).toHaveProperty('get'); // eslint-disable-line no-underscore-dangle
 });
