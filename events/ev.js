@@ -12,7 +12,7 @@ const business = async (id, data) => {
   notifier.emit('start', new Date());
   console.log('Starting an heavy calculation...');
   doTheThingSync(data);
-  console.log('Finished that heavy calculation...');  
+  console.log('Finished that heavy calculation...');
   notifier.emit('end', new Date());
   return 42;
 };

@@ -4,7 +4,7 @@ const a = async (r) => {
   return r;
 };
 
-const consume = async () => { 
+const consume = async () => {
   try {
     const r = await a(5);
     const d = await a(6);

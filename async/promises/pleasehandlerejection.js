@@ -5,7 +5,7 @@ new Promise((resolve, reject) => {
   console.log('never seen');
 });
 
-/*process.on('unhandledRejection', () => {
+/* process.on('unhandledRejection', () => {
   console.log('Ouf, on l\'a finalement attrapée');
 });
 */
