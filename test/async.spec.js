@@ -1,13 +1,17 @@
 
-const sum = (a, b) => a + b;
+const business = async (n) => {
+  if (n % 2 === 0) {
+    return n;
+  }
+  throw new Error('too odd for me');
+};
 
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
+test('should do the stuff', async () => {
+  expect(await business(2)).toBe(2);
 });
 
-const asyncId = async d => d;
-
 test('asynchronous test', async () => {
-  const result = await asyncId(42);
-  expect(result).toBe(42);
+  await expect(business(7)).rejects.toMatchObject({
+    message: 'too odd for me',
+  });
 });
