@@ -1,17 +1,21 @@
+const request = require('request');
+const { search } = require('../business/async');
 
-const business = async (n) => {
-  if (n % 2 === 0) {
-    return n;
-  }
-  throw new Error('too odd for me');
-};
+jest.mock('request');
 
 test('should do the stuff', async () => {
-  expect(await business(2)).toBe(2);
+  request.mockReturnValueOnce(Promise.resolve({ some: 'data' }));
+  return expect(await search('promises', 42))
+    .toMatchObject({ some: 'data' });
 });
 
-test('asynchronous test', async () => {
-  await expect(business(7)).rejects.toMatchObject({
-    message: 'too odd for me',
-  });
+test('should fail with an error', async () => {
+  expect.assertions(1);
+  request.mockReturnValueOnce(Promise.reject(new Error('oops')));
+  try {
+    await search('promises', 666);
+  } catch (e) {
+    return expect(e).toHaveProperty('message', 'oops');
+  }
+  return 0; // must return something anyway
 });

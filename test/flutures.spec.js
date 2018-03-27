@@ -1,8 +1,5 @@
 const Future = require('fluture');
-const request = require('request-promise-native');
-
-const search = (term, r) =>
-  Future.encaseP(request)(`https://www.qwant.com/?q=${term}%20${r}&t=all`);
+const { search } = require('../business/fluture');
 
 test('future as pure data, no side effect, no mocks', () => {
   const future = search('fluture js', Math.random());

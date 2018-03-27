@@ -1,14 +1,16 @@
+const request = require('request');
+const { search } = require('../business/promise');
 
-const business = d => new Promise((resolve, reject) => {
-  if (d > 400) {
-    resolve(d);
-  } else {
-    reject(new Error('not enough'));
-  }
+jest.mock('request');
+
+test('should do the stuff', () => {
+  request.mockReturnValueOnce(Promise.resolve({ some: 'data' }));
+  return expect(search('promises', 42))
+    .resolves.toMatchObject({ some: 'data' });
 });
 
-test('should do the stuff', () =>
-  expect(business(777)).resolves.toBe(777));
-
-test('should fail with an error', () =>
-  expect(business(399)).rejects.toHaveProperty('message', 'not enough'));
+test('should fail with an error', () => {
+  request.mockReturnValueOnce(Promise.reject(new Error('oops')));
+  return expect(search('promises', 666))
+    .rejects.toHaveProperty('message', 'oops');
+});
