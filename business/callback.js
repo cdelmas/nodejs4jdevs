@@ -1,4 +1,5 @@
 const request = require('request');
+const { combine } = require('./util');
 
 const search = (term, r, cb) => {
   request({
@@ -8,11 +9,6 @@ const search = (term, r, cb) => {
     cb(err, body);
   });
 };
-
-const combine = (a, b) => ({
-  ...a,
-  ...b,
-});
 
 const business = (r, cb) => {
   search('callback', r, (err, data) => {
