@@ -1,6 +1,5 @@
 const request = require('request-promise-native');
-
-// TODO: search two things and combine the result
+const { combine } = require('./util.js');
 
 const search = (term, r) =>
   request({
@@ -8,4 +7,9 @@ const search = (term, r) =>
     json: true,
   });
 
-module.exports = { search };
+const business = r =>
+  search('promises', r)
+    .then(data => Promise.all([data, search('hell', r)]))
+    .then(([data, data2]) => combine(data, data2));
+
+module.exports = { business };
