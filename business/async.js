@@ -1,11 +1,16 @@
 const request = require('request-promise-native');
+const { combine } = require('./util.js');
 
-// TODO: search two things and combine the result
-
-const search = (term, r) =>
+const search = async (term, r) =>
   request({
     url: `https://www.qwant.com/?q=${term}%20${r}&t=all`,
     json: true,
   });
 
-module.exports = { search };
+const business = async r =>
+  combine(
+    await search('async', r),
+    await (search('yeah', r)),
+  );
+
+module.exports = { business };
