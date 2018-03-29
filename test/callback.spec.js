@@ -12,10 +12,6 @@ test('should give an error', (done) => {
   });
 });
 
-// should test the second error path...
-
-// do not forget the case where statusCode !== 2xx
-
 test('should do the stuff', (done) => {
   request
     .mockImplementationOnce((url, cb) => cb(null, { statusCode: 200 }, { data: 42 }))

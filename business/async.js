@@ -10,7 +10,7 @@ const search = async (term, r) =>
 const business = async r =>
   combine(
     await search('async', r),
-    await (search('yeah', r)),
+    await search('yeah', r),
   );
 
 module.exports = { business };
