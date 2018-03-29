@@ -1,9 +1,17 @@
-const Future = require('fluture');
-const { search } = require('../business/fluture');
+const { business } = require('../business/fluture');
+const request = require('request-promise-native');
 
-test('future as pure data, no side effect, no mocks', () => {
-  const future = search('fluture js', Math.random());
-  expect(future).toBeInstanceOf(Future);
-  expect(future._a).toMatch(/.*qwant\.com.*/); // eslint-disable-line no-underscore-dangle
-  expect(future._fn).toHaveProperty('get'); // eslint-disable-line no-underscore-dangle
+jest.mock('request');
+
+test('should do the stuff', (done) => {
+  request.mockReturnValueOnce(Promise.resolve({ data: 42 }));
+  request.mockReturnValueOnce(Promise.resolve({ data2: 666 }));
+  const future = business(2);
+  future.fork(() => {}, (d) => {
+    expect(d).toMatchObject({
+      data: 42,
+      data2: 666,
+    });
+    done();
+  });
 });
