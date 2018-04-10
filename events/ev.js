@@ -4,40 +4,48 @@ class Notifier extends EventEmitter {}
 
 const notifier = new Notifier();
 
-const doTheThingSync = (data) => {
-  console.log(`Important business code here: ${data}`);
+const lookForWeapons = (map) => {
+  console.log(`Looking for weapons on map: ${map}`);
 };
 
-const business = async (id, data) => {
-  notifier.emit('start', new Date());
-  console.log('Starting an heavy calculation...');
-  doTheThingSync(data);
-  console.log('Finished that heavy calculation...');
-  notifier.emit('end', new Date());
+class Zombie {
+  constructor(strength) {
+    this.strength = strength;
+  }
+
+  hit(damage) {
+    console.log(`Hit zombie: ${damage}/${this.strength}`);
+  }
+}
+
+const walkAround = async (chance, map) => {
+  notifier.emit('zombie!', new Zombie(13));
+  console.log('Starting to look for weapons...');
+  lookForWeapons(map);
+  console.log('Finished!');
+  notifier.emit('zombie!', new Zombie(40));
   return 42;
 };
 
 const exp = {
-  business,
+  walkAround,
   on: (event, cb) => {
     notifier.on(event, cb);
   },
 };
 
-exp.on('start', (d) => {
-  setImmediate(() => {
-    console.log(`start -> ${d}`);
-  });
+exp.on('zombie!', (z) => {
+  if(z.strength < 20) {
+    z.hit(30);
+  } else {
+    setImmediate(() => {
+      z.hit(100);
+    });
+  }
 });
 
-exp.on('end', (d) => {
-  setImmediate(() => {
-    console.log(`end -> ${d}`);
-  });
-});
-
-const usage = async () => {
-  console.log(`${await exp.business(13, 'some data')}`);
+const world = async () => {
+  console.log(`${await exp.walkAround(13, 'a map')}`);
 };
 
-usage();
+world();

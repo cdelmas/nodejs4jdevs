@@ -8,7 +8,7 @@ const search = (term, r) =>
 
 const business = r =>
   Future.of(curry2(combine))
-    .ap(search('fluture', r))
-    .ap(search('rocks', r));
+    .ap(search('weapons', r))
+    .ap(search('zombie survive', r));
 
 module.exports = { business };

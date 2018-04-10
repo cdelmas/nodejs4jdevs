@@ -1,32 +1,29 @@
-const R = require('ramda');
 const Joi = require('joi');
 
-const schema = Joi.object().keys({
-  a: Joi.string().required(),
-  b: Joi.string(),
+const zombie = Joi.object().keys({
+  name: Joi.string().required(),
+  strength: Joi.number().integer(),
+  debility: Joi.number().integer().required(),
 });
 
-// Return result.
-
-const obj = {
-  a: 'a',
-  b: 'b',
+const realZombie = {
+  name: 'zomb',
+  strength: 12,
+  debility: 100,
 };
 
-const invalid = {
-  b: 12,
+const human = {
+  name: 'bob',
+  smart: true,
 };
 
-const val = R.pick(['a'], obj);
 const joiOptions = {
   abortEarly: false,
-  allowUnknown: true,
+  allowUnknown: false,
   stripUnknown: true,
 };
-const result = Joi.validate(obj, schema, joiOptions);
-const result2 = Joi.validate(val, schema, joiOptions);
-const result3 = Joi.validate(invalid, schema, joiOptions);
+const result = Joi.validate(realZombie, zombie, joiOptions);
+const result2 = Joi.validate(human, zombie, joiOptions);
 
-console.log(`Results: obj->${JSON.stringify(result)}; 
-  val->${JSON.stringify(result2)}; 
-  invalid->${JSON.stringify(result3)}`);
+console.log(`Results: realZombie->${JSON.stringify(result)}; 
+  human->${JSON.stringify(result2)};`);

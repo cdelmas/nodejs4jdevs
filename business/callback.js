@@ -11,9 +11,9 @@ const search = (term, r, cb) => {
 };
 
 const business = (r, cb) => {
-  search('callback', r, (err, data) => {
+  search('weapons', r, (err, data) => {
     if (!err) {
-      search('hell', r, (err2, data2) => {
+      search('zombie survive', r, (err2, data2) => {
         if (err2) {
           cb(err2);
         } else {

@@ -8,8 +8,7 @@ const search = (term, r) =>
   });
 
 const business = r =>
-  search('promises', r)
-    .then(data => Promise.all([data, search('hell', r)]))
+  Promise.all([search('zombie survive', r), search('weapons', r)])
     .then(([data, data2]) => combine(data, data2));
 
 module.exports = { business };
