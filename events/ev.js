@@ -35,7 +35,7 @@ const exp = {
 };
 
 exp.on('zombie!', (z) => {
-  if(z.strength < 20) {
+  if (z.strength < 20) {
     z.hit(30);
   } else {
     setImmediate(() => {
